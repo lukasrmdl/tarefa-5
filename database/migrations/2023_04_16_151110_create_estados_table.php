@@ -1,4 +1,3 @@
-};
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -10,15 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('produtos', function (Blueprint $table) {
+        Schema::create('estados', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('descricao');
-            $table->float('preco');
-            $table->integer('qtd_estoque');
-            $table->boolean('importado')->default(false);
+            $table->foreignId('regiao_id')
+                ->references('id')->on('regioes')
+                ->cascadeOnDelete();
+            $table->integer('codigouf');
+            $table->string('nome', 50);
+            $table->char('uf', 2);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produtos');
+        Schema::dropIfExists('estados');
     }
 };

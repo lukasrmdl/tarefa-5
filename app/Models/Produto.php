@@ -15,4 +15,8 @@ class Produto extends Model
         'qtd_estoque',
         'importado'
     ];
+
+    public function fornecedor(){
+        return $this->belongsTo(Fornecedor::class);
+    }
 }
